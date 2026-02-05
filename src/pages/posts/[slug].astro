@@ -1,4 +1,5 @@
 ---
+import "../../styles/global.css";
 import type { SanityDocument } from "@sanity/client";
 import { sanityClient } from "sanity:client";
 import {
@@ -7,7 +8,24 @@ import {
 } from "@sanity/image-url";
 import { PortableText } from "astro-portabletext";
 
-const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
+const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
+  _id,
+  title,
+  subtitle,
+  publishedAt,
+  body,
+  image {
+    asset-> {
+      _id,
+      url
+    },
+    alt
+  },
+  "author": author->{
+    name,
+    image
+  }
+}`;
 const post = await sanityClient.fetch<SanityDocument>(POST_QUERY, Astro.params);
 
 export async function getStaticPaths(): Promise<{ params: { slug: string } }> {
@@ -41,8 +59,14 @@ const postImageUrl = post.image
     )
   }
   <h1 class="text-4xl font-bold mb-8">{post.title}</h1>
-  <div class="prose">
+  {
+    post.subtitle && (
+      <h2 class="text-2xl text-gray-600 mb-4">{post.subtitle}</h2>
+    )
+  }
+  <div class="prose post-content">
     <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p>
+    {post.author && <p>By {post.author.name}</p>}
     {Array.isArray(post.body) && <PortableText value={post.body} />}
   </div>
 </main>

@@ -1,24 +1,31 @@
 ---
+import "../../styles/global.css";
 import type { SanityDocument } from "@sanity/client";
-import { sanityClient } from "sanity:client";
+import { GET } from "../api/posts";
 
-const POSTS_QUERY = `*[
-  _type == "post"
-  && defined(slug.current)
-]|order(publishedAt desc)[0...12]{_id, title, slug, publishedAt}`;
+const response = await GET(Astro);
+const posts: SanityDocument[] = await response.json();
+console.log("astro", Astro);
 
-const posts = await sanityClient.fetch<SanityDocument[]>(POSTS_QUERY);
+console.log("posts", posts);
 ---
 
 <main class="container mx-auto min-h-screen max-w-3xl p-8">
+  <a href="/" class="hover:underline">&larr; Back to Home</a>
   <h1 class="text-4xl font-bold mb-8">Posts</h1>
   <ul class="flex flex-col gap-y-4">
     {
       posts.map((post) => (
         <li class="hover:underline">
-          <a href={`/posts/${post.slug.current}`}>
+          <a href={`/posts/${post.slug}`}>
             <h2 class="text-xl font-semibold">{post.title}</h2>
-            <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
+            {post.subtitle && <p class="text-gray-600">{post.subtitle}</p>}
+            <p class="text-sm text-gray-500">
+              {new Date(post.publishedAt).toLocaleDateString()}
+            </p>
+            {post.author && (
+              <p class="text-sm text-gray-500">By {post.author.name}</p>
+            )}
           </a>
         </li>
       ))

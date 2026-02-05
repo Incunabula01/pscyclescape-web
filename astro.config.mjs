@@ -3,17 +3,22 @@ import { defineConfig } from "astro/config";
 
 import sanity from "@sanity/astro";
 
+const isDev = import.meta.env.DEV;
+
 // https://astro.build/config
 export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
+    build: {
+      minify: !isDev, // Disable minification in development
+    },
   },
   integrations: [
-    // 👇 update these lines
     sanity({
-      projectId: "xgztagdf",
-      dataset: "production",
-      useCdn: false, // for static builds
+      projectId: "x58fgvp9",
+      dataset: isDev ? "psyclescape-content" : "production",
+      useCdn: !isDev,
+      apiVersion: "2024-01-01",
     }),
   ],
 });

@@ -1,0 +1,137 @@
+---
+import Layout from "../../layouts/main.astro";
+import type { SanityDocument } from "@sanity/client";
+import { GET } from "../api/events";
+
+function getCurrentYear() {
+  return new Date().getFullYear();
+}
+
+const response = await GET(Astro);
+const events: SanityDocument[] = await response.json();
+const currentYear = getCurrentYear();
+---
+
+<Layout title="Psyclescape schedule">
+  <section class="events-section">
+    <div class="container">
+      <h1>Psyclescape {currentYear} schedule</h1>
+
+      {
+        events.length === 0 ? (
+          <p class="no-events">
+            No events scheduled at the moment. Check back soon!
+          </p>
+        ) : (
+          <div class="events-grid">
+            {events.map((event) => (
+              <article class="event-card">
+                {/* {event.image && (
+                  <img
+                    src={urlFor(event.image).width(400).height(250).url()}
+                    alt={event.title}
+                    class="event-image"
+                  />
+                )} */}
+                <div class="event-content">
+                  <h2>{event.title}</h2>
+                  <p class="event-date">
+                    📅{" "}
+                    {new Date(event.date).toLocaleDateString("en-US", {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </p>
+                  {event.location && (
+                    <p class="event-location">📍 {event.location}</p>
+                  )}
+                  {event.description && (
+                    <p class="event-description">{event.description}</p>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .events-section {
+    padding: 4rem 2rem;
+    min-height: 80vh;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    color: #667eea;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .no-events {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    padding: 3rem;
+  }
+
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  .event-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition:
+      transform 0.3s,
+      box-shadow 0.3s;
+  }
+
+  .event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .event-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .event-content {
+    padding: 1.5rem;
+  }
+
+  .event-card h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  .event-date,
+  .event-location {
+    color: #667eea;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .event-description {
+    color: #666;
+    line-height: 1.6;
+    margin-top: 1rem;
+  }
+</style>
