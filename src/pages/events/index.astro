@@ -25,7 +25,7 @@ const currentYear = getCurrentYear();
         ) : (
           <div class="events-grid">
             {events.map((event) => (
-              <article class="event-card">
+              <article class="event-card caffinated">
                 {/* {event.image && (
                   <img
                     src={urlFor(event.image).width(400).height(250).url()}
@@ -73,7 +73,6 @@ const currentYear = getCurrentYear();
 
   h1 {
     font-size: 2.5rem;
-    color: #667eea;
     margin-bottom: 3rem;
     text-align: center;
   }
@@ -95,15 +94,6 @@ const currentYear = getCurrentYear();
     background: white;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition:
-      transform 0.3s,
-      box-shadow 0.3s;
-  }
-
-  .event-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   }
 
   .event-image {

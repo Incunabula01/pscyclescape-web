@@ -1,21 +1,37 @@
 ---
 const currentPath = Astro.url.pathname;
+const currentYear = new Date().getFullYear();
 ---
 
+// Todo: create mobile friendly hamburger menu for smaller screens
 <nav class="navbar">
-  <div class="container">
-    <a href="/" class="logo">My Site</a>
+  <div class="container aurora">
+    <div class="flex items-center gap-1">
+      <img
+        src="src/assets/svgs/Primary/Primary-White.svg"
+        alt="Psyclescape Logo"
+        class="spin logo-img"
+      />
+      <a href="/" class="logo">Psyclescape {currentYear}</a>
+    </div>
+
     <ul class="nav-links">
-      <li><a href="/" class={currentPath === "/" ? "active" : ""}>Home</a></li>
       <li>
-        <a href="/events" class={currentPath === "/events" ? "active" : ""}
-          >Events</a
+        <a href="/" class={currentPath === "/" ? "active throb" : "throb"}
+          >Home</a
+        >
+      </li>
+      <li>
+        <a
+          href="/events"
+          class={currentPath === "/events" ? "active throb" : "throb"}>Events</a
         >
       </li>
       <li>
         <a
           href="/contactInfo"
-          class={currentPath === "/contactInfo" ? "active" : ""}>Contact</a
+          class={currentPath === "/contactInfo" ? "active throb" : "throb"}
+          >Contact</a
         >
       </li>
     </ul>
@@ -28,8 +44,6 @@ const currentPath = Astro.url.pathname;
     top: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
   }
 
