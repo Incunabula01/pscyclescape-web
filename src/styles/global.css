@@ -368,6 +368,11 @@ p {
   align-items: center;
 }
 
+.navbar .container.aurora {
+  max-width: 100%;
+  width: 100%;
+}
+
 .logo-img {
   width: 120px;
   height: auto;
