@@ -1,0 +1,94 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-logo">
+      <a href="/">
+        <img
+          src="/images/eye-logo.png"
+          alt="Psyclescape Logo"
+          class="footer-logo-img"
+        />
+      </a>
+    </div>
+    <nav class="footer-nav">
+      <ul class="footer-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/rooms">Rooms</a></li>
+        <li><a href="/book">Book Now</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </nav>
+    <p class="footer-copy">
+      &copy; {currentYear} Psyclescape. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-black, #000);
+    color: var(--color-white, #fff);
+    padding: 2rem 1rem;
+    border-top: 3px solid var(--color-primary, #ff6600);
+  }
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .footer-logo-img {
+    width: 60px;
+    height: auto;
+  }
+
+  .footer-nav {
+    width: 100%;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    color: var(--color-white, #fff);
+    text-decoration: none;
+    font-family: "Roboto Slab", serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--color-primary, #ff6600);
+  }
+
+  .footer-copy {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .footer-links {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+</style>

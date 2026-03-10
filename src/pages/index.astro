@@ -3,26 +3,217 @@ import "../styles/global.css";
 import Button from "../components/Button.astro";
 import Posts from "./posts/index.astro";
 import Layout from "../layouts/main.astro";
+const currentYear = new Date().getFullYear();
 // Full Astro Component Syntax:
 // https://docs.astro.build/basics/astro-components/
 ---
 
-<Layout title="Psyclescape Web">
-  <section class="hero psychedelic">
-    <div class="container bg-fuchsia-500">
-      <h1 class="brutal-text-neon hrumble">Welcome to Our Site</h1>
-      <p class="brutal-text-mono">
-        Discover amazing events and connect with us
-      </p>
-      <a href="/events" class="cta-button cellophane-bounce trumble"
-        >View Events</a
+<Layout>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content text-center">
+      <img
+        src="src/assets/svgs/Primary/Primary-White.svg"
+        alt="Psyclescape Logo"
+        class="logo-img spin"
+      />
+      <h1 id="hero-title">Psyclescape {currentYear}</h1>
+      <p>FRIDAY, AUGUST 28TH - SUNDAY, AUGUST 30TH</p>
+      <Button href="/events" class="cta-button cellophane-bounce"
+        >View Events</Button
       >
     </div>
   </section>
 
-  <section class="features">
-    <div class="container">
-      <Posts />
+  <!-- Hero Scroller Bar -->
+  <div class="scroller-bar" data-scroller>
+    <div class="scroller-bar__track" data-scroller-track>
+      <span class="scroller-bar__item">SAVE THE DATE</span>
+      <span class="scroller-bar__separator"></span>
+      <span class="scroller-bar__item">SAVE THE DATE</span>
+      <span class="scroller-bar__separator"></span>
+      <span class="scroller-bar__item">SAVE THE DATE</span>
+      <span class="scroller-bar__separator"></span>
+    </div>
+  </div>
+
+  <section class="hero-article text-center">
+    <div class="display-flex">
+      <img src="" alt="" /><p>A weekend of</p>
+    </div>
+    <div class="display-flex">
+      <p>psycho</p><img src="" alt="" /><p>bike</p>
+    </div>
+    <p>tomfoolery in</p>
+    <p>the heartland of</p>
+    <div class="display-flex">
+      <img src="" alt="" /><p>Baltimore</p><img src="" alt="" />
+    </div>
+  </section>
+
+  <!-- Landing Article Section -->
+  <section class="articles-section" id="articles">
+    <h2>Latest Articles</h2>
+    <div class="articles-grid">
+      <article class="article-card">
+        <div class="article-card__number">01</div>
+        <h3>The Art of Disruption</h3>
+        <p>
+          Exploring the boundaries between chaos and creation in modern design
+          thinking.
+        </p>
+        <a href="#">READ MORE →</a>
+      </article>
+
+      <article class="article-card">
+        <div class="article-card__number">02</div>
+        <h3>Cycles of Innovation</h3>
+        <p>
+          How breaking repetitive patterns leads to breakthrough moments of
+          clarity.
+        </p>
+        <a href="#">READ MORE →</a>
+      </article>
+
+      <article class="article-card">
+        <div class="article-card__number">03</div>
+        <h3>Escaping the Grid</h3>
+        <p>
+          A brutalist manifesto on rejecting conformity and embracing raw
+          expression.
+        </p>
+        <a href="#">READ MORE →</a>
+      </article>
     </div>
   </section>
 </Layout>
+
+<style>
+  .hero-section {
+    background-image: url("/src/assets/images/Psycescape-homepage.gif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--color-white, #fff);
+    min-height: 100vh;
+    position: relative;
+  }
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 4rem 1rem;
+  }
+  h1 {
+    font-size: 5rem;
+    text-transform: capitalize;
+    font-weight: 900;
+    border-bottom: 0;
+    margin-bottom: 0;
+  }
+  .logo-img {
+    border: 0;
+    box-shadow: none;
+    width: 390px;
+    height: auto;
+  }
+
+  @media (max-width: 768px) {
+    .hero-section {
+      background-image: url("/src/assets/images/Psycescape-homepage-Mobile.gif");
+      background-position: center top;
+      padding: 2rem 1rem;
+      min-height: 80vh;
+    }
+
+    .hero-content {
+      padding: 2rem 0.5rem;
+    }
+
+    .logo-img {
+      width: 250px;
+    }
+  }
+  /* ========================
+     Scroller Bar
+     ======================== */
+  .scroller-bar {
+    overflow: hidden;
+    background-color: var(--auxiliary, #7b46f8);
+    color: var(--color-bg, #0a0a0a);
+    padding: 1rem 0;
+    border-bottom: 3px solid var(--color-border, #fff);
+    white-space: nowrap;
+  }
+
+  .scroller-bar__track {
+    display: inline-flex;
+    align-items: center;
+    gap: 2rem;
+    animation: scroll-left 15s linear infinite;
+  }
+
+  .scroller-bar__item {
+    font-family: "Roboto Slab", serif;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .scroller-bar__separator {
+    font-size: 1rem;
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+</style>
+
+<!-- <script>
+  function initScroller() {
+    const scrollers = document.querySelectorAll("[data-scroller]");
+
+    scrollers.forEach((scroller) => {
+      const track = scroller.querySelector<HTMLElement>(
+        "[data-scroller-track]"
+      );
+      if (!track) return;
+
+      // Clone the track for seamless looping
+      const clone = track.cloneNode(true) as HTMLElement;
+      clone.setAttribute("aria-hidden", "true");
+      scroller.appendChild(clone);
+
+      let position = 0;
+      const speed = 25; // pixels per frame
+
+      function animate() {
+        position -= speed;
+
+        // Reset when the first track has fully scrolled out
+        if (Math.abs(position) >= track!.offsetWidth) {
+          position = 0;
+        }
+
+        track!.style.transform = `translateX(${position}px)`;
+        clone.style.transform = `translateX(${position}px)`;
+
+        requestAnimationFrame(animate);
+      }
+
+      requestAnimationFrame(animate);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initScroller);
+</script> -->

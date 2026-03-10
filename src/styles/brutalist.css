@@ -75,14 +75,15 @@ a {
   text-underline-offset: 3px;
   font-weight: 600;
   transition: all 0.15s ease;
+  padding: 2px 4px;
+  margin: -2px -4px;
 }
 
 a:hover {
   background-color: var(--auxiliary);
   color: var(--secondary);
   text-decoration: none;
-  padding: 2px 4px;
-  margin: -2px -4px;
+  animation: glitchtext 0.5s linear infinite;
 }
 
 a:focus {

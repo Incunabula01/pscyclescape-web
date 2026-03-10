@@ -15,8 +15,8 @@ console.log("posts", posts);
   <ul class="flex flex-col gap-y-4">
     {
       posts.map((post) => (
-        <li class="hover:underline">
-          <a href={`/posts/${post.slug}`} class="shift-glitch">
+        <li>
+          <a href={`/posts/${post.slug}`}>
             <h2 class="text-xl font-semibold">{post.title}</h2>
             {post.subtitle && <p class="text-gray-600">{post.subtitle}</p>}
             <p class="text-sm text-gray-500">
