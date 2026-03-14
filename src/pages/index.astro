@@ -11,7 +11,7 @@ const currentYear = new Date().getFullYear();
 <Layout>
   <!-- Hero Section -->
   <section class="hero-section">
-    <div class="hero-content text-center">
+    <div class="hero-content text-center container">
       <img
         src="src/assets/svgs/Primary/Primary-White.svg"
         alt="Psyclescape Logo"
@@ -38,16 +38,15 @@ const currentYear = new Date().getFullYear();
   </div>
 
   <section class="hero-article text-center">
-    <div class="display-flex">
-      <img src="" alt="" /><p>A weekend of</p>
-    </div>
-    <div class="display-flex">
-      <p>psycho</p><img src="" alt="" /><p>bike</p>
-    </div>
-    <p>tomfoolery in</p>
-    <p>the heartland of</p>
-    <div class="display-flex">
-      <img src="" alt="" /><p>Baltimore</p><img src="" alt="" />
+    <div class="container">
+      <p>
+        <span class="icon icon--skull">A</span> weekend of psycho <span
+          class="icon icon--ouija-board">bike</span
+        >
+        tomfoolery in the heartland of<span class="icon icon--bike"
+          >Baltimore</span
+        ><span class="icon icon--cat">&nbsp;</span>
+      </p>
     </div>
   </section>
 
@@ -90,12 +89,13 @@ const currentYear = new Date().getFullYear();
 
 <style>
   .hero-section {
-    background-image: url("/src/assets/images/Psycescape-homepage.gif");
+    background-image: url("/src/assets/images/Psycescape-homepage-Mobile.gif");
     background-size: cover;
-    background-position: center;
+    background-position: center top;
     background-repeat: no-repeat;
     color: var(--color-white, #fff);
-    min-height: 100vh;
+    min-height: 80vh;
+    padding: 2rem 1rem;
     position: relative;
   }
   .hero-content {
@@ -103,10 +103,24 @@ const currentYear = new Date().getFullYear();
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    padding: 4rem 1rem;
+    padding: 2rem 0.5rem;
+  }
+
+  .hero-article {
+    background: linear-gradient(to right, #fa51a2, #ff007a);
+    color: var(--auxiliary);
+    padding: 2rem 1rem;
+  }
+
+  .hero-article p {
+    font-family: "Roboto Slab", serif;
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1;
   }
   h1 {
-    font-size: 5rem;
+    font-size: 3rem;
+    line-height: 1;
     text-transform: capitalize;
     font-weight: 900;
     border-bottom: 0;
@@ -115,24 +129,33 @@ const currentYear = new Date().getFullYear();
   .logo-img {
     border: 0;
     box-shadow: none;
-    width: 390px;
+    width: 250px;
     height: auto;
   }
 
-  @media (max-width: 768px) {
+  @media (min-width: 768px) {
     .hero-section {
-      background-image: url("/src/assets/images/Psycescape-homepage-Mobile.gif");
-      background-position: center top;
-      padding: 2rem 1rem;
-      min-height: 80vh;
+      background-image: url("/src/assets/images/Psycescape-homepage.gif");
+      background-position: center;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 5rem;
+      line-height: normal;
+    }
+
+    .hero-article p {
+      font-size: 6rem;
     }
 
     .hero-content {
-      padding: 2rem 0.5rem;
+      padding: 4rem 1rem;
     }
 
     .logo-img {
-      width: 250px;
+      width: 390px;
     }
   }
   /* ========================
@@ -176,6 +199,121 @@ const currentYear = new Date().getFullYear();
     100% {
       transform: translateX(-100%);
     }
+  }
+
+  /* ========================
+     Icon Pseudo-Elements
+     ======================== */
+  .icon {
+    display: inline-block;
+    position: relative;
+    flex-shrink: 0;
+    margin-left: 70px;
+  }
+
+  .icon::before {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 60px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 0px;
+    left: -70px;
+  }
+
+  @media (min-width: 768px) {
+    .icon {
+      margin-left: 110px;
+    }
+
+    .icon::before {
+      width: 100px;
+      height: 100px;
+      left: -110px;
+    }
+  }
+
+  /* Individual icon classes */
+  .icon--bike,
+  .icon--ouija-board {
+    margin-left: 0;
+  }
+
+  .icon--bike::before,
+  .icon--ouija-board::before {
+    content: none;
+  }
+
+  @media (min-width: 768px) {
+    .icon--bike,
+    .icon--ouija-board {
+      margin-left: 110px;
+    }
+
+    .icon--bike::before,
+    .icon--ouija-board::before {
+      content: "";
+    }
+  }
+
+  .icon--bike::before {
+    background-image: url("/src/assets/icons/Bike.png");
+  }
+
+  .icon--bomb::before {
+    background-image: url("/src/assets/icons/Bomb.png");
+  }
+
+  .icon--cat::before {
+    background-image: url("/src/assets/icons/Cat.png");
+  }
+
+  .icon--ouija-board::before {
+    background-image: url("/src/assets/icons/Ouija%20Board.png");
+  }
+
+  .icon--rat::before {
+    background-image: url("/src/assets/icons/Rat.png");
+  }
+
+  .icon--skull {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    padding-top: 70px;
+  }
+
+  .icon--skull::before {
+    background-image: url("/src/assets/icons/Skull.png");
+    transform: translateX(80%);
+  }
+
+  @media (min-width: 768px) {
+    .icon--skull {
+      display: inline-block;
+      margin-left: 110px;
+      margin-right: 0;
+      width: auto;
+      padding-top: 0;
+    }
+
+    .icon--skull::before {
+      left: -110px;
+      transform: none;
+      top: 0;
+    }
+  }
+
+  .icon--tall-bike::before {
+    background-image: url("/src/assets/icons/Tall%20Bike.png");
+  }
+
+  .icon--wheel::before {
+    background-image: url("/src/assets/icons/Wheel.png");
   }
 </style>
 
